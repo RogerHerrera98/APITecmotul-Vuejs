@@ -12,7 +12,8 @@ const info = ref({
   inicio: "",
   fin: "",
 });
-
+//Se creo una variable para el control del tamaño de la panatalla
+const isPantallaPeque = ref(window.innerWidth >= 768);
 
 const formatoFechaInicio = computed(() => {
   return dayjs(info.value.inicio).format('dddd, DD [de] MMMM [del] YYYY');
@@ -90,15 +91,15 @@ const calcularColorAnillo = computed(() => {
         {{ fechaActual }}</p>
 
       <div class="bg-[#f59e0b] rounded shadow h-full mb-8 py-4 ">
-        
-          <p class="font-sans font-semibold text-lg">Del  {{ formatoFechaInicio }}  </p>
-        
-      
+
+        <p class="font-sans font-semibold text-lg">Del {{ formatoFechaInicio }} </p>
+
+
 
         <div class="flex flex-row justify-center items-center px-2">
           <p v-if="info && info.fin" class="font-sans font-semibold px-2 text-lg">Faltan </p>
           <img src="./img/reloj.png" alt="" class="w-8 h-8">
-          
+
         </div>
         <span class="font-sans  text-4xl font-semibold ">{{ diferenciaHoras }} hrs.</span>
         <p class="font-sans font-semibold text-lg">Al {{ formatoFechaFin }}</p>
@@ -110,31 +111,37 @@ const calcularColorAnillo = computed(() => {
 
 
 
-      <div v-if="info && info.fin" class="flex items-center justify-between py-4 px-2 bg-[#0ea5e9] rounded-lg shandown ">
-        <div class="relative">
-          <p class="font-sans text-black font-semibold text-md">Porcentaje de Personas Evaluadas:</p>
-          <p v-if="info && info.alTotal" class="font-sans text-sky-200 text-5xl font-bold "> {{ calcularPorcentaje }} %
-          </p>
-          <span v-if="info && info.alEvaluados" class="font-sans text-sky-200 text-lg font-bold pt-2">{{ info.alEvaluados
-          }} de {{ info.alTotal }}</span>
-          <div class="absolute inset-0 -m-4 top-1/3 flex items-center justify-end">
-            <img src="./img/lista-de-verificacion.png" alt="evaluaciones completas" class="w-16 h-16">
+      <div v-if="info && info.fin" class="flex items-center justify-between py-4 px-2 bg-[#0ea5e9] rounded-lg shandown w-full h-full">
+        <div class="flex flex-col items-center justify-center h-full w-1/3 ">
+          <p class="font-sans text-black font-semibold text-md max-sm:text-sm">Porcentaje de Personas Evaluadas:</p>
+
+          <div class="flex flex-row">
+            <p v-if="info && info.alTotal" class="font-sans px-2 text-sky-200 text-5xl max-sm:text-2xl max-sm:px-0 font-bold "> {{
+              calcularPorcentaje }} %
+            </p>
+            <img v-if="isPantallaPeque" src="./img/lista-de-verificacion.png" alt="evaluaciones completas"
+              class=" w-16 h-16 ">
+
           </div>
+          <span v-if="info && info.alEvaluados" class="font-sans text-sky-200 text-lg font-bold max-sm:text-sm">{{ info.alEvaluados
+          }} de {{ info.alTotal }}</span>
+
         </div>
 
-        <div class="relative  w-1/3 h-full p-12 ">
-          <!-- <p class="">Grafica de pastel</p> -->
+        <div class="relative  w-1/3 h-full p-12 max-sm:p-4 ">
           <div class="absolute inset-0 flex items-center justify-center rounded-bl-full anillo"
             :style="{ background: calcularColorAnillo }"></div>
-          <!-- <p>grafica</p> -->
         </div>
-        <div class="relative">
-          <p class="font-sans text-black font-semibold text-md">Porcentaje de Personas Faltantes</p>
-          <p class="font-sans text-sky-200 text-5xl font-bold ">{{ calcularPorcentajeFaltantes }} %</p>
-          <span class="font-sans text-sky-200 text-lg font-bold pt-2">Faltan {{ info.alTotal - info.alEvaluados }}</span>
-          <div class="absolute inset-0 top-1/3 -m-4  flex items-center justify-start ">
-            <img src="./img/error.png" alt="evaluaciones faltantes" class="w-16 h-16">
-          </div>
+
+        <div class="relative w-1/3 h-full">
+          <p class="font-sans text-black font-semibold text-md max-sm:text-sm">Porcentaje de Personas Faltantes</p>
+         <div class="flex flex-row ">
+          <img v-if="isPantallaPeque" src="./img/error.png" alt="evaluaciones faltantes" class="w-16 h-16">
+          <p class="font-sans px-2 text-sky-200 text-5xl font-bold max-sm:text-2xl max-sm:px-0">{{ calcularPorcentajeFaltantes }} %</p>
+          
+         </div>
+          <span class="font-sans text-sky-200 text-lg font-bold max-sm:text-sm">Faltan {{ info.alTotal - info.alEvaluados }}</span>
+          
 
         </div>
       </div>
