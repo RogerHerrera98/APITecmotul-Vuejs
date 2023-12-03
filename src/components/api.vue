@@ -85,7 +85,7 @@ const calcularColorAnillo = computed(() => {
 
 
 <template>
-  <div class="container w-1/2 justify-center items-center mx-auto ">
+  <div class="container w-2/3 justify-center items-center mx-auto ">
     <div class="text-center mb-8 py-4">
       <p v-if="info && info.periodo" class="font-sans text-lg  font-semibold ">Evaluación tutor {{ info.periodo }} <br> al
         {{ fechaActual }}</p>
@@ -128,7 +128,7 @@ const calcularColorAnillo = computed(() => {
 
         </div>
 
-        <div class="relative  w-1/3 h-full p-12 max-sm:p-4 ">
+        <div class="relative  w-1/3 h-full p-12 max-sm:p-6 ">
           <div class="absolute inset-0 flex items-center justify-center rounded-bl-full anillo"
             :style="{ background: calcularColorAnillo }"></div>
         </div>

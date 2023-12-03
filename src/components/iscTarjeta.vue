@@ -32,7 +32,7 @@ evaluacionTerminal();
 </script>
 
 <template>
-    <div class="max-w-md mx-auto">
+    <div class="max-w-md mx-auto ">
         <div class="flex">
             <div class="w-full">
                 <div class="mb-4">
